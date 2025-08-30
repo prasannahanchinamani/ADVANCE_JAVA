@@ -22,4 +22,8 @@ public class Student {
     public double getGrade() {
         return grade;
     }
+
+    public boolean hasPassed() {
+        return grade>=35;
+    }
 }
