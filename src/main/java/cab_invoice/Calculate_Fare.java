@@ -1,13 +1,19 @@
 package cab_invoice;
 
 public class Calculate_Fare {
+    private static final int COST_PER_KM = 10;
+    private static final int COST_PER_MIN = 1;
+    private static final int MINIMUM_FARE = 5;
+
     private int distance;
     private int time;
 
     public Calculate_Fare(int distance, int time) {
+        if (distance <= 0) {
+            throw new IllegalArgumentException("Distance must be greater than zero!");
+        }
         this.distance = distance;
         this.time = time;
-        validateDistance();
     }
 
     public int getDistance() {
@@ -19,14 +25,8 @@ public class Calculate_Fare {
     }
 
     // Fare formula: distance * 10 + time * 1
-    public int calculateFare(int distance, int time) {
-        int fare = distance * 10 + time * 1;
-        return Math.max(fare, 5);
-    }
-
-    public boolean validateDistance() {
-        if (distance <=0)  // now also blocks zero
-            throw new IllegalArgumentException("Distance cannot be zero or negative!");
-        return true;
+    public int calculateFare() {
+        int fare = distance * COST_PER_KM + time * COST_PER_MIN;
+        return Math.max(fare, MINIMUM_FARE);
     }
 }
