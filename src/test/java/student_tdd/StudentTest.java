@@ -7,16 +7,29 @@ import static org.junit.jupiter.api.Assertions.*;
 public class StudentTest {
     @Test
     void testStudentCreation() {
-        Student studnent= new Student("Prasanna", 21, 85.0);
-        assertEquals("Prasanna",studnent.getName());
-        assertEquals(21,studnent.getAge());
-        assertEquals(85.0,studnent.getGrade());
+        Student studnent = new Student("Prasanna", 21, 85.0);
+        assertEquals("Prasanna", studnent.getName());
+        assertEquals(21, studnent.getAge());
+        assertEquals(85.0, studnent.getGrade());
     }
+
     @Test
     void testHasPassed() {
-        Student studnent= new Student("Prasanna", 21, 85.0);
+        Student studnent = new Student("Prasanna", 22, 85.0);
         assertTrue(studnent.hasPassed());
-        assertFalse(studnent.hasPassed());
+//        assertFalse(studnent.hasPassed());
 
     }
+
+    @Test
+    void validateAge() {
+        assertThrows(IllegalArgumentException.class, () -> new Student("david", -5, 35));
+    }
+
+    @Test
+    void validateGrade() {
+        assertThrows(IllegalArgumentException.class,
+                () -> new Student("muttu", 22, -1));
+    }
+
 }
