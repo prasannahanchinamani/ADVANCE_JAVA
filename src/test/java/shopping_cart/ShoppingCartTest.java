@@ -12,17 +12,17 @@ class ShoppingCartTest {
 
     @BeforeEach
     void setUp() {
-        cart = new ShoppingCart(); // fresh cart for each test
+        cart = new ShoppingCart(); 
         item1 = new Item(1, "Laptop", 50000);
         item2 = new Item(2, "Mouse", 1500);
         item3 = new Item(3, "Keyboard", 2500);
-        System.out.println(" BeforeEach: New cart created");
+
     }
 
     @AfterEach
     void tearDown() {
-        cart = null; // cleanup
-        System.out.println(" AfterEach: Cart cleared");
+        cart = null; 
+    
     }
 
     @DisplayName("Test adding items to the cart.")
