@@ -33,14 +33,14 @@ class ItemTest {
         assertThrows(IllegalArgumentException.class,
                 () -> new Item(3, "Mouse", -1));
     }
-    @Disabled
+//    @Disabled
     @DisplayName("Test Id should not be zero or negative")
     @Test
     void testId() {
         assertThrows(IllegalArgumentException.class,
                 () -> new Item(1, "Mouse", 7));
     }
-    @Disabled
+//    @Disabled
     @DisplayName("Testing Item Name")
     @Test
     void testItemName() {
