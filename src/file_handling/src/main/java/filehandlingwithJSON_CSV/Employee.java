@@ -1,9 +1,21 @@
-package net.filehandlingwithJSON_CSV;
+package file_handling.filehandling.src.main.java.net.filehandlingwithJSON_CSV;
 
 public class Employee {
     private int id;
     private String name;
     private double salary;
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setSalary(double salary) {
+        this.salary = salary;
+    }
 
     public Employee(int id, String name, double salary) {
         this.id = id;

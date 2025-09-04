@@ -1,4 +1,4 @@
-package net.filehandlingwithJSON_CSV;
+package csv_json_example;
 
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
@@ -42,20 +42,19 @@ public class FileHandlingwithCsv {
             throw new RuntimeException(e);
         }
     }
-        public  static void readCSV(List<Employee>employeeList,String path){
-            try(FileReader reader=new FileReader(path)){
-                CsvToBean csvToBean=new CsvToBeanBuilder<Employee>(reader).withType(Employee.class)
-                        .withIgnoreLeadingWhiteSpace(true).build();
+    public  static void readCSV(List<Employee>employeeList,String path){
+        try(FileReader reader=new FileReader(path)){
+            CsvToBean csvToBean=new CsvToBeanBuilder<Employee>(reader).withType(Employee.class)
+                    .withIgnoreLeadingWhiteSpace(true).build();
 
-                employeeList=(csvToBean.parse());
-                employeeList.forEach(System.out::println);
-                System.out.println("Reading is completed.");
-            }catch (IOException exception){
-                exception.printStackTrace();
-            }
-            catch (Exception e){
-                e.printStackTrace();
-            }
+            employeeList=(csvToBean.parse());
+            employeeList.forEach(System.out::println);
+            System.out.println("Reading is completed.");
+        }catch (IOException exception){
+            exception.printStackTrace();
+        }
+        catch (Exception e){
+            e.printStackTrace();
         }
     }
-
+}
