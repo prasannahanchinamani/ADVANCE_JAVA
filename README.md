@@ -35,3 +35,18 @@ class MathUtilsTest {
         assertEquals(4, 2 + 2, "2 + 2 should equal 4");
     }
 }
+
+
+### 1. File Handling (Main Focus)
+- Core file operations: create, read, write, and update files.  
+- Includes extended examples of handling **JSON** and **CSV** data.  
+- Covers different use-cases like task management, cab invoice, shopping cart, and insurance policy data.  
+
+## Branches
+
+- `feature/junit-basics` – JUnit testing examples (only testing branch).  
+- `file_handling` – Core file operations + JSON & CSV handling.  
+- `cab_invoice` – File handling applied to a cab invoice generator.  
+- `shopping_cart` – File handling applied to a shopping cart system.  
+- `insurance_policy_data_management` – File handling applied to policy data management.  
+
