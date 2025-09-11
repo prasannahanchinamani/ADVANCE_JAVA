@@ -30,12 +30,8 @@
 
 ### `Supplier<T>`
 - Method: `T get()`
-
-### `UnaryOperator<T>` (special case of Function)
-- Method: `T apply(T t)`
-
-### `BinaryOperator<T>` (special case of BiFunction)
-- Method: `T apply(T t1, T t2)`
+- 
+ ### Stream api
 
 ---
 
