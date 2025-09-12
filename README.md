@@ -19,11 +19,6 @@
 ### `Consumer<T>`
 - Method: `void accept(T t)`
 
-### `BiConsumer<T, U>`
-- Method: `void accept(T t, U u)`
-
-### `Function<T, R>`
-- Method: `R apply(T t)`
 
 ### `BiFunction<T, U, R>`
 - Method: `R apply(T t, U u)`
@@ -32,6 +27,9 @@
 - Method: `T get()`
 - 
  ### Stream api
+
+ ###Junit
+ tested some of test cases
 
 ---
 
