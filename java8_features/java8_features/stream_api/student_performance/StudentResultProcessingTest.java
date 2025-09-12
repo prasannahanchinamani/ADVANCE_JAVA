@@ -12,10 +12,10 @@ class StudentResultProcessingTest {
     void setUp() {
         students = Arrays.asList(
                 new Student(1, "Sam", 75),
-                new Student(2, "Alice", 82),
+                new Student(2, "Ani", 82),
                 new Student(3, "Steve", 92),
-                new Student(4, "Bob", 28),
-                new Student(5, "Sophie", 65)
+                new Student(4, "Boss", 28),
+                new Student(5, "Sonal", 65)
         );
     }
 
@@ -30,8 +30,8 @@ class StudentResultProcessingTest {
     @Test
     void testFindFirstStudentStartingWithS_NoMatch() {
         List<Student> noMatchList = Arrays.asList(
-                new Student(1, "Alice", 50),
-                new Student(2, "Bob", 60)
+                new Student(1, "Ani", 50),
+                new Student(2, "Boss", 60)
         );
         Optional<Student> result = StudentResultProcessing.findFirstStudentStartingWithS(noMatchList);
         assertFalse(result.isPresent());
@@ -47,7 +47,7 @@ class StudentResultProcessingTest {
     void testAllStudentsScoredAbove35_AllPass() {
         List<Student> passing = Arrays.asList(
                 new Student(1, "Anna", 50),
-                new Student(2, "Ben", 70)
+                new Student(2, "Benstokes", 70)
         );
         boolean allAbove = StudentResultProcessing.allStudentsScoredAbove35(passing);
         assertTrue(allAbove);
@@ -67,3 +67,4 @@ class StudentResultProcessingTest {
         assertFalse(average.isPresent());
     }
 }
+
