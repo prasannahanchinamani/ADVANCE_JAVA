@@ -45,10 +45,10 @@ public class StudentResultProcessing {
     public static void main(String[] args) {
         List<Student> students = Arrays.asList(
                 new Student(1, "Sam", 75),
-                new Student(2, "Alice", 82),
+                new Student(2, "Alni", 82),
                 new Student(3, "Steve", 92),
-                new Student(4, "Bob", 28),
-                new Student(5, "Sophie", 65)
+                new Student(4, "Boss", 28),
+                new Student(5, "Sonal", 65)
         );
 
         Optional<Student> firstS = findFirstStudentStartingWithS(students);
@@ -66,3 +66,4 @@ public class StudentResultProcessing {
         );
     }
 }
+
