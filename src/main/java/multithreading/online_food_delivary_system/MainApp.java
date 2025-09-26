@@ -7,6 +7,7 @@ import multithreading.online_food_delivary_system.discount.FutureCallable;
 import multithreading.online_food_delivary_system.orders.Order;
 import multithreading.online_food_delivary_system.orders.OrderProgress;
 import multithreading.online_food_delivary_system.orders.Orderqueue;
+import multithreading.online_food_delivary_system.orders.UrgentOrder;
 import multithreading.online_food_delivary_system.restaurant.Food_Menu;
 import multithreading.online_food_delivary_system.restaurant.MultiRestaurantManager;
 
@@ -32,9 +33,17 @@ public class MainApp {
             System.out.print("Enter item number " + (i + 1) + ": ");
             int choice = sc.nextInt();
             Order order = Food_Menu.getOrder(choice - 1);
-            if (order != null) selectedOrders.add(order);
-            else System.out.println("Invalid selection, skipping");
+
+            if (order != null) {
+                boolean urgent = UrgentOrder.checkUrgency(order, sc);
+                order.setUrgent(urgent);
+                selectedOrders.add(order);
+            } else {
+                System.out.println("Invalid selection, skipping");
+            }
         }
+
+
 
         if (selectedOrders.isEmpty()) {
             System.out.println("No valid orders selected. Exiting.");

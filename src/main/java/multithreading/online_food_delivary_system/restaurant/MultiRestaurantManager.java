@@ -13,7 +13,7 @@ public class MultiRestaurantManager {
         System.out.println("From Which Restrant to You Want order Enter The Number");
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
-        String resName = RestaurantNames.getRestaurant(n);
+        String resName = RestaurantNames.getRestaurant(n - 1);
         ExecutorService executor = Executors.newFixedThreadPool(RestaurantNames.names.length);
         ScheduledExecutorService schedule = Executors.newScheduledThreadPool(1);
         Runnable statusTask = () -> System.out.println("System Update: Restaurants are cooking...");
@@ -21,7 +21,7 @@ public class MultiRestaurantManager {
         for (Order order : orders) {
             futures.add(executor.submit(() -> {
                 System.out.println(resName + " received order: " + order.getName());
-                Thread.sleep(2000); // Simulate cooking time
+                Thread.sleep(2000);
                 return resName + " completed order: " + order.getName();
             }));
         }
