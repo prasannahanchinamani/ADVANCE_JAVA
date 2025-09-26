@@ -1,26 +1,26 @@
 package multithreading.online_food_delivary_system.delivery;
 
 public class RestaurantDeliveryThreads {
-    public static void main(String[] args) {
+
+    public RestaurantDeliveryThreads() {
         Thread restaurant = new Thread(() -> {
-            System.out.println("Restaurant is preparing food!!");
             try {
                 Thread.sleep(2000);
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                Thread.currentThread().interrupt();
             }
-            System.out.println("Food is Ready take it.");
         });
-        Thread delicaryagent = new Thread(() -> {
-            System.out.println("Delivary agent is Waiting outside");
+
+        // Thread simulating delivery agent work
+        Thread deliveryAgent = new Thread(() -> {
             try {
                 Thread.sleep(2000);
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                Thread.currentThread().interrupt();
             }
-            System.out.println("Delivary the Food");
         });
+
         restaurant.start();
-        delicaryagent.start();
+        deliveryAgent.start();
     }
 }

@@ -12,16 +12,14 @@ public class Orderqueue {
             wait();
         }
         queue.add(order);
-        System.out.println("Order added to queue: " + order.getName());
         notifyAll();
     }
 
     public synchronized Order takeOrder() throws InterruptedException {
         while (queue.isEmpty()) {
-            wait(); // wait if queue is empty
+            wait();
         }
         Order order = queue.poll();
-        System.out.println("Order taken from queue: " + order.getName());
         notifyAll();
         return order;
     }

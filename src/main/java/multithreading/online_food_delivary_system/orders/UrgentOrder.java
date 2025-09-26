@@ -4,7 +4,6 @@ import java.util.Scanner;
 
 public class UrgentOrder {
     public static boolean checkUrgency(Order order, Scanner sc) {
-        System.out.print("Mark order '" + order.getName() + " urgent? (yes/no): ");
         String input = sc.next();
         return input.equalsIgnoreCase("yes") || input.equalsIgnoreCase("y");
     }

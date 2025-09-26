@@ -9,7 +9,6 @@ import java.util.concurrent.*;
 public class FutureCallable {
     private final ExecutorService executor = Executors.newFixedThreadPool(2);
 
-
     public List<Future<Double>> submitOrders(List<Order> orders) {
         List<Future<Double>> futures = new ArrayList<>();
         for (Order order : orders) {

@@ -1,21 +1,18 @@
 package multithreading.online_food_delivary_system.restaurant;
 
 public class RestaurantNames {
-    public static final String[] names = {" 1.Nalanda", "2.MuttannatenttHouse", "3.Udupi", "3.Swadista Ahara"};
+    public static final String[] names = {"Nalanda", "MuttannatenttHouse", "Udupi", "Swadista Ahara"};
 
     static void dislay() {
         for (int i = 0; i < names.length; i++) {
-            System.out.println(names[i] + " ");
+            System.out.println((i + 1) + ". " + names[i]);
         }
     }
 
     static String getRestaurant(int number) {
-        if (number == 0 || number > names.length)
-            throw new IllegalArgumentException();
-        for (int i = 1; i <= names.length; i++) {
-            if (i == number)
-                return names[i];
+        if (number < 0 || number >= names.length) {
+            throw new IllegalArgumentException("Invalid restaurant number: " + (number + 1));
         }
-        return null;
+        return names[number];
     }
 }

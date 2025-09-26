@@ -12,17 +12,17 @@ public class Delivery implements Runnable {
 
     @Override
     public void run() {
-        System.out.println("Delivery agent is waiting outside");
         try {
             slot.acquireSlot(agentName);
-            System.out.println(agentName + " is delivering the food...");
             Thread.sleep(2000);
-            System.out.println(agentName + " completed delivery!");
-            System.out.println("Feedback....");
             slot.releaseSlot(agentName);
         } catch (InterruptedException e) {
-            System.out.println(agentName + " delivery interrupted!");
-            Thread.currentThread().interrupt();
+            try {
+                Thread.currentThread().interrupt();
+                throw new InterruptedException();
+            } catch (InterruptedException ex) {
+                throw new RuntimeException(ex);
+            }
         }
     }
 }
