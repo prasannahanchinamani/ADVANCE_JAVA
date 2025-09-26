@@ -1,7 +1,8 @@
-package multithreading.online_food_delivary_system;
+package multithreading.online_food_delivary_system.discount;
+
+import multithreading.online_food_delivary_system.orders.Order;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.*;
 

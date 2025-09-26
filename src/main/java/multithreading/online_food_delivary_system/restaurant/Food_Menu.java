@@ -1,11 +1,13 @@
-package multithreading.online_food_delivary_system;
+package multithreading.online_food_delivary_system.restaurant;
+
+import multithreading.online_food_delivary_system.orders.Order;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Food_Menu {
     private static final List<Order> menu = new ArrayList<>();
-
+  public static  int index;
     static {
         menu.add(new Order("Burger", 100, 10));
         menu.add(new Order("Pizza", 250, 20));

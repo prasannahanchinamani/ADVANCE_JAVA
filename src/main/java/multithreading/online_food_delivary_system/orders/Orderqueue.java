@@ -1,11 +1,11 @@
-package multithreading.online_food_delivary_system;
+package multithreading.online_food_delivary_system.orders;
 
 import java.util.LinkedList;
 import java.util.Queue;
 
 public class Orderqueue {
-    private final Queue<Order> queue = new LinkedList<>();
-    private final int max_size = 5;
+    private static final Queue<Order> queue = new LinkedList<>();
+    private static final int max_size = 5;
 
     public synchronized void addOrder(Order order) throws InterruptedException {
         while (queue.size() >= max_size) {
@@ -22,7 +22,7 @@ public class Orderqueue {
         }
         Order order = queue.poll();
         System.out.println("Order taken from queue: " + order.getName());
-        notifyAll(); // notify producers
+        notifyAll();
         return order;
     }
 }

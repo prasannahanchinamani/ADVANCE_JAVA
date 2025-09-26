@@ -1,4 +1,4 @@
-package multithreading.online_food_delivary_system;
+package multithreading.online_food_delivary_system.restaurant;
 
 public class Restaurant extends Thread {
     @Override

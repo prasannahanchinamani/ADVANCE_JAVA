@@ -1,4 +1,8 @@
-package multithreading.online_food_delivary_system;
+package multithreading.online_food_delivary_system.orders;
+
+import multithreading.online_food_delivary_system.delivery.Delivery;
+import multithreading.online_food_delivary_system.delivery.DeliverySlots;
+import multithreading.online_food_delivary_system.restaurant.Food_Menu;
 
 import java.util.Scanner;
 
@@ -29,45 +33,38 @@ public class OrderProgress {
 
     public void maintainOrder() throws InterruptedException {
         // Select orders from menu
-        Food_Menu.showMenu();
-        System.out.println("Which one you already orderd");
-        Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
-        int n1 = sc.nextInt();
-        Order order1 = Food_Menu.getOrder(n);
-        Order order2 = Food_Menu.getOrder(n1);
-
+//        Food_Menu.showMenu();
+      Order order1=Food_Menu.getOrder(Food_Menu.index);
         // Create cooking threads
         OrderThread t1 = new OrderThread(order1);
-        OrderThread t2 = new OrderThread(order2);
 
         // Delivery setup
-        DeliverySlots slots = new DeliverySlots();
-        Delivery delivery = new Delivery("Agent-XYZ", slots);
-        Thread deliveryThread = new Thread(delivery);
+//        DeliverySlots slots = new DeliverySlots();
+//        Delivery delivery = new Delivery("Agent-XYZ", slots);
+//        Thread deliveryThread = new Thread(delivery);
 
         // NEW state
         System.out.println(t1.getName() + " initial state: " + t1.getState());
-        System.out.println(t2.getName() + " initial state: " + t2.getState());
+
 
         // Start cooking threads → RUNNABLE
         t1.start();
-        t2.start();
+
 
         // Interrupt t2
         Thread.sleep(1500);
-        t2.interrupt();
+
 
         // Wait for threads to finish
         t1.join();
-        t2.join();
+
 
         // Start delivery
-        deliveryThread.start();
-        deliveryThread.join();
+//        deliveryThread.start();
+//        deliveryThread.join();
 
         // TERMINATED state
         System.out.println(t1.getName() + " final state: " + t1.getState());
-        System.out.println(t2.getName() + " final state: " + t2.getState());
+
     }
 }

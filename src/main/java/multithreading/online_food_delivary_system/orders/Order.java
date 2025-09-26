@@ -1,4 +1,4 @@
-package multithreading.online_food_delivary_system;
+package multithreading.online_food_delivary_system.orders;
 
 public class Order {
     private String name;

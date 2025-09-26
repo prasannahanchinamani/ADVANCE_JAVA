@@ -1,7 +1,8 @@
-package multithreading.online_food_delivary_system;
+package multithreading.online_food_delivary_system.discount;
+
+import multithreading.online_food_delivary_system.orders.Order;
 
 import java.util.concurrent.Callable;
-import java.util.concurrent.Future;
 
 public class PriceCalculator implements Callable<Double> {
     private final Order order;

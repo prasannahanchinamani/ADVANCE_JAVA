@@ -1,5 +1,9 @@
 package multithreading.online_food_delivary_system;
 
+import multithreading.online_food_delivary_system.delivery.Delivery;
+import multithreading.online_food_delivary_system.delivery.DeliverySlots;
+import multithreading.online_food_delivary_system.restaurant.Restaurant;
+
 public class ThreadRunnableDemo {
     public static void main(String[] args) throws InterruptedException {
         // Using Thread subclass

@@ -1,4 +1,4 @@
-package multithreading.online_food_delivary_system;
+package multithreading.online_food_delivary_system.delivery;
 
 public class RestaurantDeliveryThreads {
     public static void main(String[] args) {

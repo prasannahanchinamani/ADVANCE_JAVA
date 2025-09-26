@@ -1,5 +1,9 @@
 package multithreading.online_food_delivary_system;
 
+import multithreading.online_food_delivary_system.discount.Calculating_discount;
+import multithreading.online_food_delivary_system.orders.Order;
+import multithreading.online_food_delivary_system.restaurant.Food_Menu;
+
 public class ThreadvsProcess {
     public static void main(String[] args) throws InterruptedException {
         long start, end;
