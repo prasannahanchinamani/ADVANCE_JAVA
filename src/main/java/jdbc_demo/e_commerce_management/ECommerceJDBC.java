@@ -1,0 +1,149 @@
+package jdbc_demo.e_commerce_management;
+
+import java.sql.*;
+
+public class ECommerceJDBC {
+
+    // 1. Fetch orders in the last 30 days
+    public void getRecentOrders() {
+        String query = """
+            SELECT o.orderID, c.fullName AS customer_name, o.orderDate, o.paymentMethod,
+                   SUM(od.quantity * od.price) AS total_amount
+            FROM Orders o
+            JOIN Customers c ON o.customerID = c.customer_id
+            JOIN OrderDetails od ON o.orderID = od.orderID
+            WHERE o.orderDate >= DATE_SUB(CURDATE(), INTERVAL 30 DAY)
+            GROUP BY o.orderID, c.fullName, o.orderDate, o.paymentMethod
+            ORDER BY o.orderDate DESC;
+        """;
+
+        try (Connection con = ConnectionDatabase.getConnection();
+             Statement stmt = con.createStatement();
+             ResultSet rs = stmt.executeQuery(query)) {
+            while (rs.next()) {
+                System.out.println(
+                        rs.getInt("orderID") + " | " +
+                                rs.getString("customer_name") + " | " +
+                                rs.getTimestamp("orderDate") + " | " +
+                                rs.getString("paymentMethod") + " | " +
+                                rs.getDouble("total_amount")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // 2. Search customer by Email
+    public void searchCustomerByEmail(String email) {
+        String query = "SELECT * FROM Customers WHERE Email = ?";
+        try (Connection con = ConnectionDatabase.getConnection();
+             PreparedStatement ps = con.prepareStatement(query)) {
+            ps.setString(1, email);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    System.out.println(
+                            rs.getInt("customer_id") + " | " +
+                                    rs.getString("fullName") + " | " +
+                                    rs.getString("Email") + " | " +
+                                    rs.getString("Phone") + " | " +
+                                    rs.getTimestamp("CreatedAt")
+                    );
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // 3. Fetch products by category
+    public void getProductsByCategory(String categoryName) {
+        String query = """
+            SELECT p.productID, p.productName, p.price, p.stock, c.categoryName
+            FROM Products p
+            JOIN Categories c ON p.categoryID = c.categoryID
+            WHERE c.categoryName = ?
+        """;
+
+        try (Connection con = ConnectionDatabase.getConnection();
+             PreparedStatement ps = con.prepareStatement(query)) {
+            ps.setString(1, categoryName);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    System.out.println(
+                            rs.getInt("productID") + " | " +
+                                    rs.getString("productName") + " | " +
+                                    rs.getDouble("price") + " | " +
+                                    rs.getInt("stock") + " | " +
+                                    rs.getString("categoryName")
+                    );
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // 4. Orders and OrderDetails join
+    public void getOrderDetails() {
+        String query = """
+            SELECT o.orderID, c.fullName AS customer_name, o.orderDate,
+                   p.productName, od.quantity, od.price, (od.quantity * od.price) AS total
+            FROM Orders o
+            JOIN Customers c ON o.customerID = c.customer_id
+            JOIN OrderDetails od ON o.orderID = od.orderID
+            JOIN Products p ON od.productID = p.productID
+            ORDER BY o.orderID
+        """;
+
+        try (Connection con = ConnectionDatabase.getConnection();
+             Statement stmt = con.createStatement();
+             ResultSet rs = stmt.executeQuery(query)) {
+            while (rs.next()) {
+                System.out.println(
+                        rs.getInt("orderID") + " | " +
+                                rs.getString("customer_name") + " | " +
+                                rs.getTimestamp("orderDate") + " | " +
+                                rs.getString("productName") + " | " +
+                                rs.getInt("quantity") + " | " +
+                                rs.getDouble("price") + " | " +
+                                rs.getDouble("total")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // 5. Top 3 customers by total spending in last 6 months and bought from at least 3 categories
+    public void getTopCustomers() {
+        String query = """
+            SELECT c.customer_id, c.fullName, SUM(od.quantity * od.price) AS total_spent,
+                   COUNT(DISTINCT p.categoryID) AS categories_bought
+            FROM Customers c
+            JOIN Orders o ON c.customer_id = o.customerID
+            JOIN OrderDetails od ON o.orderID = od.orderID
+            JOIN Products p ON od.productID = p.productID
+            WHERE o.orderDate >= DATE_SUB(CURDATE(), INTERVAL 6 MONTH)
+            GROUP BY c.customer_id, c.fullName
+            HAVING COUNT(DISTINCT p.categoryID) >= 3
+            ORDER BY total_spent DESC
+            LIMIT 3
+        """;
+
+        try (Connection con = ConnectionDatabase.getConnection();
+             Statement stmt = con.createStatement();
+             ResultSet rs = stmt.executeQuery(query)) {
+            while (rs.next()) {
+                System.out.println(
+                        rs.getInt("customer_id") + " | " +
+                                rs.getString("fullName") + " | " +
+                                rs.getDouble("total_spent") + " | " +
+                                rs.getInt("categories_bought")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+}
