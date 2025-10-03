@@ -20,24 +20,31 @@ public class Main {
 
             switch (choice) {
                 case 1 -> {
-                    System.out.print("Name: "); String name = sc.next();
-                    System.out.print("Designation: "); String desig = sc.next();
-                    System.out.print("Salary: "); double salary = sc.nextDouble();
-                    System.out.print("Dept ID: "); int deptId = sc.nextInt();
+                    System.out.print("Name: ");
+                    String name = sc.next();
+                    System.out.print("Designation: ");
+                    String desig = sc.next();
+                    System.out.print("Salary: ");
+                    double salary = sc.nextDouble();
+                    System.out.print("Dept ID: ");
+                    int deptId = sc.nextInt();
                     dao.createEmployee(name, desig, salary, deptId);
                 }
                 case 2 -> {
-                    System.out.print("Department Name: "); String dept = sc.next();
+                    System.out.print("Department Name: ");
+                    String dept = sc.next();
                     dao.getEmployeesByDepartment(dept);
                 }
                 case 3 -> {
-                    System.out.print("Emp ID: "); int empId = sc.nextInt();
-                    System.out.print("New Salary: "); double sal = sc.nextDouble();
+                    System.out.print("Emp ID: ");
+                    int empId = sc.nextInt();
+                    System.out.print("New Salary: ");
+                    double sal = sc.nextDouble();
                     dao.updateSalary(empId, sal);
                 }
                 case 4 -> {
-                    System.out.print("Emp ID to delete: "); int empId = sc.nextInt();
-                    dao.deleteEmployee(empId);
+                    System.out.println("Low dalaru employee");
+                    dao.deleteLowSalaryEmployees();
                 }
                 case 5 -> dao.highestPaidEmployees();
                 case 6 -> {

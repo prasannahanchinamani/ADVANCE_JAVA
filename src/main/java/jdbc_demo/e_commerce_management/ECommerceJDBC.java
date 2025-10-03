@@ -3,18 +3,21 @@ package jdbc_demo.e_commerce_management;
 import java.sql.*;
 
 public class ECommerceJDBC {
-
+    //recent orders
     public void getRecentOrders() {
         String query = """
-            SELECT o.orderID, c.fullName AS customer_name, o.orderDate, o.paymentMethod,
-                   SUM(od.quantity * od.price) AS total_amount
-            FROM Orders o
-            JOIN Customers c ON o.customerID = c.customer_id
-            JOIN OrderDetails od ON o.orderID = od.orderID
-            WHERE o.orderDate >= DATE_SUB(CURDATE(), INTERVAL 30 DAY)
-            GROUP BY o.orderID, c.fullName, o.orderDate, o.paymentMethod
-            ORDER BY o.orderDate DESC;
-        """;
+                    SELECT c.customer_id,c.fullName,SUM(od.quantity * od.price) AS total_spent,
+                            COUNT(DISTINCT p.categoryID) AS categories_bought
+                            FROM Customers c
+                            JOIN Orders o ON c.customer_id = o.customerID
+                            JOIN OrderDetails od ON o.orderID = od.orderID
+                            JOIN Products p ON od.productID = p.productID
+                            WHERE o.orderDate >= DATE_SUB(CURDATE(), INTERVAL 6 MONTH)
+                            GROUP BY c.customer_id, c.fullName
+                            HAVING COUNT(DISTINCT p.categoryID) >= 3
+                            ORDER BY total_spent DESC
+                            LIMIT 3;
+                """;
 
         try (Connection con = ConnectionDatabase.getConnection();
              Statement stmt = con.createStatement();
@@ -56,11 +59,11 @@ public class ECommerceJDBC {
 
     public void getProductsByCategory(String categoryName) {
         String query = """
-            SELECT p.productID, p.productName, p.price, p.stock, c.categoryName
-            FROM Products p
-            JOIN Categories c ON p.categoryID = c.categoryID
-            WHERE c.categoryName = ?
-        """;
+                    SELECT p.productID, p.productName, p.price, p.stock, c.categoryName
+                    FROM Products p
+                    JOIN Categories c ON p.categoryID = c.categoryID
+                    WHERE c.categoryName = ?
+                """;
 
         try (Connection con = ConnectionDatabase.getConnection();
              PreparedStatement ps = con.prepareStatement(query)) {
@@ -80,16 +83,17 @@ public class ECommerceJDBC {
             e.printStackTrace();
         }
     }
+
     public void getOrderDetails() {
         String query = """
-            SELECT o.orderID, c.fullName AS customer_name, o.orderDate,
-                   p.productName, od.quantity, od.price, (od.quantity * od.price) AS total
-            FROM Orders o
-            JOIN Customers c ON o.customerID = c.customer_id
-            JOIN OrderDetails od ON o.orderID = od.orderID
-            JOIN Products p ON od.productID = p.productID
-            ORDER BY o.orderID
-        """;
+                    SELECT o.orderID, c.fullName AS customer_name, o.orderDate,
+                           p.productName, od.quantity, od.price, (od.quantity * od.price) AS total
+                    FROM Orders o
+                    JOIN Customers c ON o.customerID = c.customer_id
+                    JOIN OrderDetails od ON o.orderID = od.orderID
+                    JOIN Products p ON od.productID = p.productID
+                    ORDER BY o.orderID
+                """;
 
         try (Connection con = ConnectionDatabase.getConnection();
              Statement stmt = con.createStatement();
@@ -113,18 +117,18 @@ public class ECommerceJDBC {
     // 5. Top 3 customers by total spending in last 6 months and bought from at least 3 categories
     public void getTopCustomers() {
         String query = """
-            SELECT c.customer_id, c.fullName, SUM(od.quantity * od.price) AS total_spent,
-                   COUNT(DISTINCT p.categoryID) AS categories_bought
-            FROM Customers c
-            JOIN Orders o ON c.customer_id = o.customerID
-            JOIN OrderDetails od ON o.orderID = od.orderID
-            JOIN Products p ON od.productID = p.productID
-            WHERE o.orderDate >= DATE_SUB(CURDATE(), INTERVAL 6 MONTH)
-            GROUP BY c.customer_id, c.fullName
-            HAVING COUNT(DISTINCT p.categoryID) >= 3
-            ORDER BY total_spent DESC
-            LIMIT 3
-        """;
+                    SELECT c.customer_id, c.fullName, SUM(od.quantity * od.price) AS total_spent,
+                           COUNT(DISTINCT p.categoryID) AS categories_bought
+                    FROM Customers c
+                    JOIN Orders o ON c.customer_id = o.customerID
+                    JOIN OrderDetails od ON o.orderID = od.orderID
+                    JOIN Products p ON od.productID = p.productID
+                    WHERE o.orderDate >= DATE_SUB(CURDATE(), INTERVAL 6 MONTH)
+                    GROUP BY c.customer_id, c.fullName
+                    HAVING COUNT(DISTINCT p.categoryID) >= 3
+                    ORDER BY total_spent DESC
+                    LIMIT 3
+                """;
 
         try (Connection con = ConnectionDatabase.getConnection();
              Statement stmt = con.createStatement();
@@ -141,4 +145,5 @@ public class ECommerceJDBC {
             e.printStackTrace();
         }
     }
+
 }

@@ -61,20 +61,20 @@ public class EmployeeDAO {
         }
     }
 
-    // DELETE: Remove employee
-    public void deleteEmployee(int empId) {
-        String query = "DELETE FROM Employee WHERE emp_id = ?";
+    // DELETE: Remove employee salary <300000
+    public void deleteLowSalaryEmployees() {
+        String query = "DELETE FROM Employee WHERE salary < 30000";
         try (Connection con = ConnectionDatabase.getConnection();
-             PreparedStatement ps = con.prepareStatement(query)) {
-            ps.setInt(1, empId);
-            int rows = ps.executeUpdate();
-            System.out.println(rows + " employee deleted.");
+             Statement st = con.createStatement()) {
+            int rows = st.executeUpdate(query);  // use executeUpdate for DELETE
+            System.out.println(rows + " employee(s) with salary < 30000 deleted.");
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    // EXTRA: Highest-paid employee per department
+
+    //Highest-paid employee per department
     public void highestPaidEmployees() {
         String query = """
                     SELECT d.dept_name, e.name, e.salary
