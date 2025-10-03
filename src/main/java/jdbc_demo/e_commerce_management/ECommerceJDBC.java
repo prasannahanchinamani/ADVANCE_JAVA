@@ -4,7 +4,6 @@ import java.sql.*;
 
 public class ECommerceJDBC {
 
-    // 1. Fetch orders in the last 30 days
     public void getRecentOrders() {
         String query = """
             SELECT o.orderID, c.fullName AS customer_name, o.orderDate, o.paymentMethod,
@@ -22,10 +21,10 @@ public class ECommerceJDBC {
              ResultSet rs = stmt.executeQuery(query)) {
             while (rs.next()) {
                 System.out.println(
-                        rs.getInt("orderID") + " | " +
-                                rs.getString("customer_name") + " | " +
-                                rs.getTimestamp("orderDate") + " | " +
-                                rs.getString("paymentMethod") + " | " +
+                        rs.getInt("orderID") + "  " +
+                                rs.getString("customer_name") + "  " +
+                                rs.getTimestamp("orderDate") + "  " +
+                                rs.getString("paymentMethod") + " " +
                                 rs.getDouble("total_amount")
                 );
             }
@@ -34,7 +33,6 @@ public class ECommerceJDBC {
         }
     }
 
-    // 2. Search customer by Email
     public void searchCustomerByEmail(String email) {
         String query = "SELECT * FROM Customers WHERE Email = ?";
         try (Connection con = ConnectionDatabase.getConnection();
@@ -43,10 +41,10 @@ public class ECommerceJDBC {
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     System.out.println(
-                            rs.getInt("customer_id") + " | " +
-                                    rs.getString("fullName") + " | " +
-                                    rs.getString("Email") + " | " +
-                                    rs.getString("Phone") + " | " +
+                            rs.getInt("customer_id") + "  " +
+                                    rs.getString("fullName") + "  " +
+                                    rs.getString("Email") + "  " +
+                                    rs.getString("Phone") + "  " +
                                     rs.getTimestamp("CreatedAt")
                     );
                 }
@@ -56,7 +54,6 @@ public class ECommerceJDBC {
         }
     }
 
-    // 3. Fetch products by category
     public void getProductsByCategory(String categoryName) {
         String query = """
             SELECT p.productID, p.productName, p.price, p.stock, c.categoryName
@@ -71,10 +68,10 @@ public class ECommerceJDBC {
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     System.out.println(
-                            rs.getInt("productID") + " | " +
-                                    rs.getString("productName") + " | " +
-                                    rs.getDouble("price") + " | " +
-                                    rs.getInt("stock") + " | " +
+                            rs.getInt("productID") + "  " +
+                                    rs.getString("productName") + "  " +
+                                    rs.getDouble("price") + "  " +
+                                    rs.getInt("stock") + "  " +
                                     rs.getString("categoryName")
                     );
                 }
@@ -83,8 +80,6 @@ public class ECommerceJDBC {
             e.printStackTrace();
         }
     }
-
-    // 4. Orders and OrderDetails join
     public void getOrderDetails() {
         String query = """
             SELECT o.orderID, c.fullName AS customer_name, o.orderDate,
@@ -101,12 +96,12 @@ public class ECommerceJDBC {
              ResultSet rs = stmt.executeQuery(query)) {
             while (rs.next()) {
                 System.out.println(
-                        rs.getInt("orderID") + " | " +
-                                rs.getString("customer_name") + " | " +
-                                rs.getTimestamp("orderDate") + " | " +
-                                rs.getString("productName") + " | " +
-                                rs.getInt("quantity") + " | " +
-                                rs.getDouble("price") + " | " +
+                        rs.getInt("orderID") + "  " +
+                                rs.getString("customer_name") + "  " +
+                                rs.getTimestamp("orderDate") + "  " +
+                                rs.getString("productName") + "  " +
+                                rs.getInt("quantity") + "  " +
+                                rs.getDouble("price") + "  " +
                                 rs.getDouble("total")
                 );
             }
@@ -136,9 +131,9 @@ public class ECommerceJDBC {
              ResultSet rs = stmt.executeQuery(query)) {
             while (rs.next()) {
                 System.out.println(
-                        rs.getInt("customer_id") + " | " +
-                                rs.getString("fullName") + " | " +
-                                rs.getDouble("total_spent") + " | " +
+                        rs.getInt("customer_id") + "  " +
+                                rs.getString("fullName") + "  " +
+                                rs.getDouble("total_spent") + "  " +
                                 rs.getInt("categories_bought")
                 );
             }
