@@ -162,3 +162,24 @@ JOIN Customers c ON o.customerID = c.customer_id
 JOIN OrderDetails od ON o.orderID = od.orderID
 JOIN Products p ON od.productID = p.productID
 ORDER BY o.orderID;
+---//stored procesure
+DELIMITER $$
+CREATE PROCEDURE PlaceOrder(
+    IN p_customerId INT,
+    IN p_productId INT,
+    IN p_quantity INT,
+    IN p_paymentMethod VARCHAR(50)
+)
+BEGIN
+    DECLARE stockLeft INT;
+    DECLARE orderId INT;
+    SELECT Stock INTO stockLeft
+    FROM Products
+    WHERE ProductID = p_productId;
+    IF stockLeft >= p_quantity THEN
+        SELECT 'Available for order' AS Status;
+    ELSE
+        SELECT 'Insufficient stock' AS Status;
+    END IF;
+END;
+DELIMITER ;
