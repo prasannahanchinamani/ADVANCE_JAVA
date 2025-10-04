@@ -1,5 +1,6 @@
 package jdbc_demo.employee_management;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -33,7 +34,8 @@ public class Main {
                 case 2 -> {
                     System.out.print("Department Name: ");
                     String dept = sc.next();
-                    dao.getEmployeesByDepartment(dept);
+                    List<Employee> list = dao.getEmployeesByDepartment(dept);
+                    list.stream().forEach(System.out::println);
                 }
                 case 3 -> {
                     System.out.print("Emp ID: ");
@@ -45,6 +47,8 @@ public class Main {
                 case 4 -> {
                     System.out.println("Low dalaru employee");
                     dao.deleteLowSalaryEmployees();
+//                    System.out.println(x);
+
                 }
                 case 5 -> dao.highestPaidEmployees();
                 case 6 -> {

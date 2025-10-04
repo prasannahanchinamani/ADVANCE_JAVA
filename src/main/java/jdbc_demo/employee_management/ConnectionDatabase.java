@@ -15,7 +15,7 @@ public class ConnectionDatabase {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection connection = DriverManager.getConnection(url, userName, password);
             if (connection != null) {
-                System.out.println("Connected to database!..");
+//                System.out.println("Connected to database!..");
             } else {
                 System.out.println("Check Connection");
             }
